@@ -2,6 +2,7 @@ package uz.gita.dima.apicontactcompose.presenter.splash
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,7 @@ class SplashScreenViewModelImpl @Inject constructor(
 ): SplashScreenViewModel.ViewModel, ViewModel() {
 
     init {
+        Log.d("TTT","Has token Splash ->  ${sharedPref.hasToken}")
         if (sharedPref.hasToken) {
             val phone = sharedPref.phone
             val password = sharedPref.parol
@@ -32,15 +34,19 @@ class SplashScreenViewModelImpl @Inject constructor(
                             direction.navigateToHome()
                         }
                     }, 2000)
-
                 }
 
                 it.onFailure {
                     sharedPref.hasToken = false
-                    direction.navigateToLogin()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        viewModelScope.launch {
+                            direction.navigateToLogin()
+                        }
+                    }, 2000)
                 }
             }.launchIn(viewModelScope)
         } else {
+            Log.d("TTT","Has token Splash ->  ${sharedPref.hasToken}")
             Handler(Looper.getMainLooper()).postDelayed({
                 viewModelScope.launch {
                     direction.navigateToLogin()
