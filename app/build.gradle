@@ -4,9 +4,6 @@ plugins {
 
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
-
-    id 'kotlin-parcelize'
-    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -108,4 +105,9 @@ dependencies {
 
     // Coroutine Lifecycle Scopes
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+
+    // Room
+    implementation 'androidx.room:room-runtime:2.5.1'
+    implementation 'androidx.room:room-ktx:2.5.1'
+    kapt 'androidx.room:room-compiler:2.5.1'
 }

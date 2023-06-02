@@ -4,14 +4,13 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import uz.gita.dima.apicontactcompose.domain.network.usecase.auth.AuthUseCase
 import uz.gita.dima.apicontactcompose.data.source.local.sharedPref.SharedPref
-import uz.gita.dima.apicontactcompose.domain.usecase.auth.AuthUseCase
 import javax.inject.Inject
 
 @HiltViewModel

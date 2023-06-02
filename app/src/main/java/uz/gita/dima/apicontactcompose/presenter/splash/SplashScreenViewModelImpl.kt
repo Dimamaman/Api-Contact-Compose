@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import uz.gita.dima.apicontactcompose.data.source.local.sharedPref.SharedPref
 import uz.gita.dima.apicontactcompose.data.source.remote.request.LoginRequest
-import uz.gita.dima.apicontactcompose.domain.usecase.auth.AuthUseCase
+import uz.gita.dima.apicontactcompose.domain.network.usecase.auth.AuthUseCase
 import javax.inject.Inject
 
 @HiltViewModel
