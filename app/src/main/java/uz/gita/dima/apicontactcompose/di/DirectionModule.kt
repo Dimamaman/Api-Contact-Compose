@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import uz.gita.dima.apicontactcompose.presenter.addedit.AddEditDirection
+import uz.gita.dima.apicontactcompose.presenter.addedit.AddEditViewModel
 import uz.gita.dima.apicontactcompose.presenter.home.HomeDirection
 import uz.gita.dima.apicontactcompose.presenter.home.HomeViewModel
 import uz.gita.dima.apicontactcompose.presenter.login.LoginDirection
@@ -33,4 +35,7 @@ interface DirectionModule {
 
     @Binds
     fun bindHomeDirection(impl: HomeDirection): HomeViewModel.HomeDirection
+
+    @Binds
+    fun bindAddEditDirection(impl: AddEditDirection): AddEditViewModel.AddEditDirection
 }

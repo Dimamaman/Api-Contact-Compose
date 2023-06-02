@@ -2,6 +2,7 @@ package uz.gita.dima.apicontactcompose.presenter.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -14,6 +15,7 @@ import uz.gita.dima.apicontactcompose.data.source.local.sharedPref.SharedPref
 import uz.gita.dima.apicontactcompose.util.isInternetAvailable
 import javax.inject.Inject
 
+@HiltViewModel
 class HomeViewModelImpl @Inject constructor(
     private val sharedPref: SharedPref,
     private val contactUseCase: ContactUseCase,
@@ -28,6 +30,15 @@ class HomeViewModelImpl @Inject constructor(
             contactUseCase.getAllContacts(sharedPref.token).onEach {
                 uiState.update { it.copy(progressLoading = true) }
                 it.onSuccess { list ->
+
+//                    homeUseCase.retrieveAllContacts().onEach {
+//                        for (i in it.indices) {
+//                            if (it[i].id != list[i].id.toLong()) {
+//                                list.toMutableList().add(it[i])
+//                            }
+//                        }
+//                    }.launchIn(viewModelScope)
+
                     uiState.update { it.copy(progressLoading = false) }
                     uiState.update { it.copy(contacts = list.map { it.toContactData() }) }
                 }

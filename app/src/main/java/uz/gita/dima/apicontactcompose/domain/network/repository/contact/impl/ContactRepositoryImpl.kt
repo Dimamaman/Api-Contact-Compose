@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flowOn
 import uz.gita.dima.apicontactcompose.data.source.remote.api.ContactApi
 import uz.gita.dima.apicontactcompose.data.source.remote.request.AddContactRequest
 import uz.gita.dima.apicontactcompose.data.source.remote.request.EditContactRequest
-import uz.gita.dima.contactappwithclean.data.source.remote.response.AddContactResponse
+import uz.gita.dima.apicontactcompose.data.source.remote.response.AddContactResponse
 import uz.gita.dima.apicontactcompose.data.source.remote.response.ContactData
 import uz.gita.dima.contactappwithclean.data.source.remote.response.EditContactResponse
 import uz.gita.dima.apicontactcompose.domain.network.repository.contact.ContactRepository

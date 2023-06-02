@@ -1,4 +1,4 @@
-package uz.gita.dima.contactappwithclean.data.source.remote.response
+package uz.gita.dima.apicontactcompose.data.source.remote.response
 
 data class AddContactResponse(
     val firstName: String,

@@ -64,6 +64,7 @@ class LoginViewModelImp @Inject constructor(
                         sharedPref.token = it.token
                         sharedPref.hasToken = true
                         sharedPref.phone = it.phone
+                        sharedPref.parol = intent.login.password
 
 
                         uiState.update { it.copy(message = "Successfully") }
@@ -72,7 +73,7 @@ class LoginViewModelImp @Inject constructor(
                     }
 
                     it.onFailure { error ->
-                        sharedPref.hasToken = false
+//                        sharedPref.hasToken = false
                         Log.d("TTT", "Fail Message -> ${error.message}")
                         uiState.update { it.copy(errorMessage = error.message.toString()) }
                     }

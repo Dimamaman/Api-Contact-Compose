@@ -17,7 +17,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
-    private val baseUrl = "https://e3b3-2605-6440-4000-f004-00-889.ngrok-free.app"
+    private val baseUrl = "https://e874-195-158-16-140.ngrok-free.app"
 
     @Provides
     @Singleton

@@ -9,13 +9,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import uz.gita.dima.apicontactcompose.data.source.local.sharedPref.SharedPref
 import uz.gita.dima.apicontactcompose.domain.network.usecase.auth.AuthUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModelImpl @Inject constructor(
     private val authUseCase: AuthUseCase,
-    private val direction: RegisterViewModel.Direction
+    private val direction: RegisterViewModel.Direction,
+    private val sharedPref: SharedPref
 ): RegisterViewModel.ViewModel, ViewModel() {
 
     override val uiState =  MutableStateFlow(RegisterViewModel.UIState())
@@ -72,6 +74,7 @@ class RegisterViewModelImpl @Inject constructor(
                     it.onSuccess {
                         uiState.update { it.copy(progressState = false) }
                         Log.d("DDD","Registerdan nomer -> ${intent.registerRequest.phone}")
+                        sharedPref.parol = intent.registerRequest.password
                         direction.navigateToVerify(intent.registerRequest.phone)
                     }
 
