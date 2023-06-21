@@ -3,7 +3,7 @@ package uz.gita.dima.apicontactcompose.presenter.addedit
 import kotlinx.coroutines.flow.StateFlow
 import uz.gita.dima.apicontactcompose.domain.network.model.ContactData
 
-interface AddEditViewModel {
+interface AddEditContract {
     sealed interface Intent {
         class UpdateContact(val updateContact: ContactData): Intent
         class AddContact(val newContact: ContactData): Intent

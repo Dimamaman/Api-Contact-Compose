@@ -18,13 +18,13 @@ class SplashScreen: AndroidScreen() {
 
     @Composable
     override fun Content() {
-        val viewModel: SplashScreenViewModel.ViewModel = getViewModel<SplashScreenViewModelImpl>()
+        val viewModel: SplashScreenContract.ViewModel = getViewModel<SplashScreenViewModelImpl>()
         SplashScreenContent(viewModel)
     }
 }
 
 @Composable
-fun SplashScreenContent(viewModel: SplashScreenViewModel.ViewModel) {
+fun SplashScreenContent(viewModel: SplashScreenContract.ViewModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,

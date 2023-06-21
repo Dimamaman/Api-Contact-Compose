@@ -3,7 +3,7 @@ package uz.gita.dima.apicontactcompose.presenter.home
 import kotlinx.coroutines.flow.StateFlow
 import uz.gita.dima.apicontactcompose.domain.network.model.ContactData
 
-interface HomeViewModel {
+interface HomeContract {
 
     sealed interface Intent {
         class OpenEditContact(val contact: ContactData): Intent

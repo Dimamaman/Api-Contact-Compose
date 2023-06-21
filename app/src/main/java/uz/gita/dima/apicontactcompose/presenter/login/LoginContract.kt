@@ -1,13 +1,13 @@
-package uz.gita.dima.apicontactcompose.presenter.verify
+package uz.gita.dima.apicontactcompose.presenter.login
 
 import kotlinx.coroutines.flow.StateFlow
-import uz.gita.dima.apicontactcompose.data.source.remote.request.VerifyCodeRequest
+import uz.gita.dima.apicontactcompose.data.source.remote.request.LoginRequest
 
-interface VerifyViewModel {
+interface LoginContract {
     sealed interface Intent {
-        class Ready(val verifyCodeRequest: VerifyCodeRequest): Intent
+        class LoginSubmit(val login: LoginRequest): Intent
+        object OpenRegister: Intent
 
-        object BackRegister: Intent
         object ClearMessage: Intent
     }
 
@@ -17,13 +17,14 @@ interface VerifyViewModel {
         val progressState: Boolean = false
     )
 
-    interface Direction {
-        suspend fun navigateToHome()
-        suspend fun backRegister()
-    }
-
     interface ViewModel {
         val uiState: StateFlow<UIState>
+
         fun onEventDispatchers(intent: Intent)
+    }
+
+    interface Direction {
+        suspend fun navigateToHome()
+        suspend fun navigateToRegister()
     }
 }

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class SplashDirection @Inject constructor(
     private val appNavigator: AppNavigator
-): SplashScreenViewModel.Direction {
+): SplashScreenContract.Direction {
     override suspend fun navigateToLogin() {
         appNavigator.replace(LoginScreen())
     }

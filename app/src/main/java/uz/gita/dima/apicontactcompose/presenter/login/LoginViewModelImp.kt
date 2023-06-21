@@ -17,14 +17,14 @@ import javax.inject.Inject
 class LoginViewModelImp @Inject constructor(
     private val authUseCase: AuthUseCase,
     private val sharedPref: SharedPref,
-    private val direction: LoginViewModel.Direction
-) : LoginViewModel.ViewModel, ViewModel() {
+    private val direction: LoginContract.Direction
+) : LoginContract.ViewModel, ViewModel() {
 
-    override val uiState = MutableStateFlow(LoginViewModel.UIState())
+    override val uiState = MutableStateFlow(LoginContract.UIState())
 
-    override fun onEventDispatchers(intent: LoginViewModel.Intent) {
+    override fun onEventDispatchers(intent: LoginContract.Intent) {
         when (intent) {
-            is LoginViewModel.Intent.LoginSubmit -> {
+            is LoginContract.Intent.LoginSubmit -> {
 
                 uiState.update { it.copy(progressState = true) }
 
@@ -80,11 +80,11 @@ class LoginViewModelImp @Inject constructor(
                 }.launchIn(viewModelScope)
             }
 
-            is LoginViewModel.Intent.OpenRegister -> {
+            is LoginContract.Intent.OpenRegister -> {
                 viewModelScope.launch { direction.navigateToRegister() }
             }
 
-            is LoginViewModel.Intent.ClearMessage -> {
+            is LoginContract.Intent.ClearMessage -> {
                 uiState.update { it.copy(message = "", errorMessage = "") }
             }
         }

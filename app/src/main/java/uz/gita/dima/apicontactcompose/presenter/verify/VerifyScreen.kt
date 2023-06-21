@@ -30,21 +30,20 @@ import uz.gita.dima.apicontactcompose.R
 import uz.gita.dima.apicontactcompose.data.source.remote.request.VerifyCodeRequest
 import uz.gita.dima.apicontactcompose.navigation.AppScreen
 import uz.gita.dima.apicontactcompose.presenter.login.component.MyTextField
-import uz.gita.dima.apicontactcompose.presenter.register.RegisterViewModel
 
 class VerifyScreen(val phone: String) : AppScreen() {
 
     @Composable
     override fun Content() {
-        val viewModel: VerifyViewModel.ViewModel = getViewModel<VerifyViewModelImpl>()
+        val viewModel: VerifyContract.ViewModel = getViewModel<VerifyViewModelImpl>()
         VerifyScreenContent(viewModel.uiState.collectAsState(),viewModel::onEventDispatchers,phone)
     }
 }
 
 @Composable
 fun VerifyScreenContent(
-    uiState: State<VerifyViewModel.UIState>,
-    onEventDispatchers: (VerifyViewModel.Intent) -> Unit,
+    uiState: State<VerifyContract.UIState>,
+    onEventDispatchers: (VerifyContract.Intent) -> Unit,
     phone: String
 ) {
     val context = LocalContext.current
@@ -52,12 +51,12 @@ fun VerifyScreenContent(
     if (uiState.value.errorMessage != "") {
         Log.d("TTT", "Error Message -> ${uiState.value.errorMessage}")
         Toast.makeText(context, uiState.value.errorMessage, Toast.LENGTH_SHORT).show()
-        onEventDispatchers.invoke(VerifyViewModel.Intent.ClearMessage)
+        onEventDispatchers.invoke(VerifyContract.Intent.ClearMessage)
     }
 
     if (uiState.value.message != "") {
         Toast.makeText(context, uiState.value.message, Toast.LENGTH_SHORT).show()
-        onEventDispatchers.invoke(VerifyViewModel.Intent.ClearMessage)
+        onEventDispatchers.invoke(VerifyContract.Intent.ClearMessage)
     }
 
     Column(
@@ -69,7 +68,7 @@ fun VerifyScreenContent(
         Image(
             modifier = Modifier
                 .clickable {
-                    onEventDispatchers(VerifyViewModel.Intent.BackRegister)
+                    onEventDispatchers(VerifyContract.Intent.BackRegister)
                 }
                 .size(24.dp),
             painter = painterResource(id = R.drawable.baseline_arrow_back_ios_24),
@@ -92,7 +91,7 @@ fun VerifyScreenContent(
 
         if (code.length == 6) {
             val verifyCodeRequest = VerifyCodeRequest(phone, code)
-            onEventDispatchers(VerifyViewModel.Intent.Ready(verifyCodeRequest))
+            onEventDispatchers(VerifyContract.Intent.Ready(verifyCodeRequest))
         }
     }
 }

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class LoginDirection @Inject constructor(
     private val appNavigator: AppNavigator
-): LoginViewModel.Direction {
+): LoginContract.Direction {
     override suspend fun navigateToHome() {
         appNavigator.replace(HomeScreen())
     }

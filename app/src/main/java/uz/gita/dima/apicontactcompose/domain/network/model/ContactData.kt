@@ -8,7 +8,8 @@ data class ContactData(
     val id: Long = 0,
     val firstName: String,
     val lastName: String,
-    val phone: String
+    val phone: String,
+    val isSavedToServer:Int = 0
 ) {
     fun toEntity() = ContactEntity(
         id, firstName, lastName, phone

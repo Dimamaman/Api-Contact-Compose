@@ -20,8 +20,8 @@ class HomeViewModelImpl @Inject constructor(
     private val sharedPref: SharedPref,
     private val contactUseCase: ContactUseCase,
     private val homeUseCase: HomeUseCase,
-    private val direction: HomeViewModel.HomeDirection
-) : HomeViewModel.ViewModel, ViewModel() {
+    private val direction: HomeContract.HomeDirection
+) : HomeContract.ViewModel, ViewModel() {
 
     private val isInternetAvailable = isInternetAvailable(App.instance)
 
@@ -57,23 +57,23 @@ class HomeViewModelImpl @Inject constructor(
 
 
 
-    override val uiState = MutableStateFlow(HomeViewModel.UiState())
+    override val uiState = MutableStateFlow(HomeContract.UiState())
 
-    override fun onEventDispatcher(intent: HomeViewModel.Intent) {
+    override fun onEventDispatcher(intent: HomeContract.Intent) {
         when(intent) {
-            is HomeViewModel.Intent.OpenEditContact -> {
+            is HomeContract.Intent.OpenEditContact -> {
                 viewModelScope.launch {
                     direction.navigateToAddOrEditScreen(intent.contact)
                 }
             }
 
-            is HomeViewModel.Intent.OpenAddContact -> {
+            is HomeContract.Intent.OpenAddContact -> {
                 viewModelScope.launch {
                     direction.navigateToAddOrEditScreen(null)
                 }
             }
 
-            is HomeViewModel.Intent.Delete -> {
+            is HomeContract.Intent.Delete -> {
                 if (isInternetAvailable) {
                     contactUseCase.deleteContact(intent.contact.id.toInt()).onEach {
                         it.onSuccess {

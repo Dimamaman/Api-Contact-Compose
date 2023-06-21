@@ -22,7 +22,7 @@ import uz.gita.dima.apicontactcompose.presenter.login.component.MyTextField
 class AddEditContactScreen(private val contactData: ContactData? = null): AppScreen() {
     @Composable
     override fun Content() {
-        val viewModel: AddEditViewModel.ViewModel = getViewModel<AddEditViewModelImpl>()
+        val viewModel: AddEditContract.ViewModel = getViewModel<AddEditViewModelImpl>()
         AddEditContactScreenContent(viewModel.uiState.collectAsState(),viewModel::onEventDispatcher, contact = contactData ?: ContactData(0, "", "", ""))
     }
 
@@ -31,8 +31,8 @@ class AddEditContactScreen(private val contactData: ContactData? = null): AppScr
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditContactScreenContent(
-    uiState: State<AddEditViewModel.UIState>,
-    onEventDispatcher: (AddEditViewModel.Intent) -> Unit,
+    uiState: State<AddEditContract.UIState>,
+    onEventDispatcher: (AddEditContract.Intent) -> Unit,
     contact: ContactData
 ) {
     var firstName by remember { mutableStateOf(contact.firstName) }
@@ -40,6 +40,7 @@ fun AddEditContactScreenContent(
     var lastName by remember { mutableStateOf(contact.lastName) }
 
     var phone by remember { mutableStateOf(contact.phone) }
+
     val context = LocalContext.current
     if (uiState.value.submitMessage != "") {
 
@@ -48,14 +49,14 @@ fun AddEditContactScreenContent(
 
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
-        onEventDispatcher.invoke(AddEditViewModel.Intent.ClearMessage)
+        onEventDispatcher.invoke(AddEditContract.Intent.ClearMessage)
     }
 
     if (uiState.value.error != "") {
 
         Toast.makeText(LocalContext.current, uiState.value.error, Toast.LENGTH_SHORT).show()
 
-        onEventDispatcher.invoke(AddEditViewModel.Intent.ClearMessage)
+        onEventDispatcher.invoke(AddEditContract.Intent.ClearMessage)
     }
 
     Scaffold(
@@ -112,7 +113,7 @@ fun AddEditContactScreenContent(
 
                 if (contact.id == 0L) {
                     onEventDispatcher(
-                        AddEditViewModel.Intent.AddContact(
+                        AddEditContract.Intent.AddContact(
                             ContactData(
                                 firstName = firstName,
                                 lastName = lastName,
@@ -122,7 +123,7 @@ fun AddEditContactScreenContent(
                     )
                 } else {
                     onEventDispatcher(
-                        AddEditViewModel.Intent.UpdateContact(
+                        AddEditContract.Intent.UpdateContact(
                             ContactData(
                                 id = contact.id,
                                 firstName = firstName,

@@ -14,16 +14,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.hilt.getViewModel
-import uz.gita.dima.apicontactcompose.data.source.remote.request.LoginRequest
 import uz.gita.dima.apicontactcompose.data.source.remote.request.RegisterRequest
 import uz.gita.dima.apicontactcompose.navigation.AppScreen
-import uz.gita.dima.apicontactcompose.presenter.login.LoginViewModel
 import uz.gita.dima.apicontactcompose.presenter.login.component.MyTextField
 
 class RegisterScreen : AppScreen() {
     @Composable
     override fun Content() {
-        val viewModel: RegisterViewModel.ViewModel = getViewModel<RegisterViewModelImpl>()
+        val viewModel: RegisterContract.ViewModel = getViewModel<RegisterViewModelImpl>()
 
         RegisterScreenContent(viewModel.uiState.collectAsState(), viewModel::onEventDispatchers)
     }
@@ -31,8 +29,8 @@ class RegisterScreen : AppScreen() {
 
 @Composable
 fun RegisterScreenContent(
-    uiState: State<RegisterViewModel.UIState>,
-    onEventDispatchers: (RegisterViewModel.Intent) -> Unit
+    uiState: State<RegisterContract.UIState>,
+    onEventDispatchers: (RegisterContract.Intent) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -45,12 +43,12 @@ fun RegisterScreenContent(
     if (uiState.value.errorMessage != "") {
         Log.d("TTT", "Error Message -> ${uiState.value.errorMessage}")
         Toast.makeText(context, uiState.value.errorMessage, Toast.LENGTH_SHORT).show()
-        onEventDispatchers.invoke(RegisterViewModel.Intent.ClearMessage)
+        onEventDispatchers.invoke(RegisterContract.Intent.ClearMessage)
     }
 
     if (uiState.value.message != "") {
         Toast.makeText(context, uiState.value.message, Toast.LENGTH_SHORT).show()
-        onEventDispatchers.invoke(RegisterViewModel.Intent.ClearMessage)
+        onEventDispatchers.invoke(RegisterContract.Intent.ClearMessage)
     }
 
     Column(
@@ -122,7 +120,7 @@ fun RegisterScreenContent(
                 .padding(top = 150.dp),
             onClick = {
                 onEventDispatchers(
-                    RegisterViewModel.Intent.Ready(
+                    RegisterContract.Intent.Ready(
                         RegisterRequest(
                             firstName = firstName,
                             lastName = lastName,

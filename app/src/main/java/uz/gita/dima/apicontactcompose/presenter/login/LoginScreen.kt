@@ -21,7 +21,7 @@ import uz.gita.dima.apicontactcompose.presenter.login.component.MyTextField
 class LoginScreen : AndroidScreen() {
     @Composable
     override fun Content() {
-        val viewModel: LoginViewModel.ViewModel = getViewModel<LoginViewModelImp>()
+        val viewModel: LoginContract.ViewModel = getViewModel<LoginViewModelImp>()
 
         LoginScreenContent(
             viewModel.uiState.collectAsState(),
@@ -32,8 +32,8 @@ class LoginScreen : AndroidScreen() {
 
 @Composable
 fun LoginScreenContent(
-    uiState: State<LoginViewModel.UIState>,
-    onEventDispatchers: (LoginViewModel.Intent) -> Unit
+    uiState: State<LoginContract.UIState>,
+    onEventDispatchers: (LoginContract.Intent) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -43,12 +43,12 @@ fun LoginScreenContent(
     if (uiState.value.errorMessage != "") {
         Log.d("TTT","Error Message -> ${uiState.value.errorMessage}")
         Toast.makeText(context, uiState.value.errorMessage, Toast.LENGTH_SHORT).show()
-        onEventDispatchers.invoke(LoginViewModel.Intent.ClearMessage)
+        onEventDispatchers.invoke(LoginContract.Intent.ClearMessage)
     }
 
     if (uiState.value.message != "") {
         Toast.makeText(context, uiState.value.message, Toast.LENGTH_SHORT).show()
-        onEventDispatchers.invoke(LoginViewModel.Intent.ClearMessage)
+        onEventDispatchers.invoke(LoginContract.Intent.ClearMessage)
     }
 
     Column(
@@ -89,7 +89,7 @@ fun LoginScreenContent(
                 .fillMaxWidth()
                 .padding(top = 150.dp),
             onClick = {
-                onEventDispatchers(LoginViewModel.Intent.LoginSubmit(LoginRequest(phone, password)))
+                onEventDispatchers(LoginContract.Intent.LoginSubmit(LoginRequest(phone, password)))
 
             }
         ) {
@@ -100,7 +100,7 @@ fun LoginScreenContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 10.dp),
-            onClick = { onEventDispatchers(LoginViewModel.Intent.OpenRegister) }
+            onClick = { onEventDispatchers(LoginContract.Intent.OpenRegister) }
         ) {
             Text(text = "Register")
         }

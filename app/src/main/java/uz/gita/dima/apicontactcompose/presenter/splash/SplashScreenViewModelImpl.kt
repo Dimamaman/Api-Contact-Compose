@@ -24,8 +24,8 @@ import javax.inject.Inject
 class SplashScreenViewModelImpl @Inject constructor(
     private val authUseCase: AuthUseCase,
     private val sharedPref: SharedPref,
-    private val direction: SplashScreenViewModel.Direction
-): SplashScreenViewModel.ViewModel, ViewModel() {
+    private val direction: SplashScreenContract.Direction
+): SplashScreenContract.ViewModel, ViewModel() {
     private val isInternetAvailable = isInternetAvailable(App.instance)
     init {
         Log.d("TTT","Has token Splash 1->  ${sharedPref.hasToken}")

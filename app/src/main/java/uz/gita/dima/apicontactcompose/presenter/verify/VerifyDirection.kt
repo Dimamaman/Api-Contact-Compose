@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class VerifyDirection @Inject constructor(
     private val appNavigator: AppNavigator
-): VerifyViewModel.Direction {
+): VerifyContract.Direction {
     override suspend fun navigateToHome() {
         appNavigator.replaceAll(HomeScreen())
     }

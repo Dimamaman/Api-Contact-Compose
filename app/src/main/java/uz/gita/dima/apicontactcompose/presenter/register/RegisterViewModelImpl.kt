@@ -16,15 +16,15 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModelImpl @Inject constructor(
     private val authUseCase: AuthUseCase,
-    private val direction: RegisterViewModel.Direction,
+    private val direction: RegisterContract.Direction,
     private val sharedPref: SharedPref
-): RegisterViewModel.ViewModel, ViewModel() {
+): RegisterContract.ViewModel, ViewModel() {
 
-    override val uiState =  MutableStateFlow(RegisterViewModel.UIState())
+    override val uiState =  MutableStateFlow(RegisterContract.UIState())
 
-    override fun onEventDispatchers(intent: RegisterViewModel.Intent) {
+    override fun onEventDispatchers(intent: RegisterContract.Intent) {
         when(intent) {
-            is RegisterViewModel.Intent.Ready -> {
+            is RegisterContract.Intent.Ready -> {
                 uiState.update { it.copy(progressState = true) }
 
                 if (intent.registerRequest.firstName.trim().isEmpty()) {
@@ -85,13 +85,13 @@ class RegisterViewModelImpl @Inject constructor(
                 }.launchIn(viewModelScope)
             }
 
-            is RegisterViewModel.Intent.BackLogin -> {
+            is RegisterContract.Intent.BackLogin -> {
                 viewModelScope.launch {
                     direction.backLogin()
                 }
             }
 
-            is RegisterViewModel.Intent.ClearMessage -> {
+            is RegisterContract.Intent.ClearMessage -> {
                 uiState.update { it.copy(message = "", errorMessage = "") }
             }
         }

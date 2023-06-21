@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class RegisterDirection @Inject constructor(
     private val appNavigator: AppNavigator
-): RegisterViewModel.Direction {
+): RegisterContract.Direction {
     override suspend fun navigateToVerify(phone: String) {
         appNavigator.navigateTo(VerifyScreen(phone))
     }

@@ -17,13 +17,13 @@ import javax.inject.Inject
 class VerifyViewModelImpl @Inject constructor(
     private val authUseCase: AuthUseCase,
     private val sharedPref: SharedPref,
-    private val direction: VerifyViewModel.Direction
-) : VerifyViewModel.ViewModel, ViewModel() {
-    override val uiState = MutableStateFlow(VerifyViewModel.UIState())
+    private val direction: VerifyContract.Direction
+) : VerifyContract.ViewModel, ViewModel() {
+    override val uiState = MutableStateFlow(VerifyContract.UIState())
 
-    override fun onEventDispatchers(intent: VerifyViewModel.Intent) {
+    override fun onEventDispatchers(intent: VerifyContract.Intent) {
         when(intent) {
-            is VerifyViewModel.Intent.Ready -> {
+            is VerifyContract.Intent.Ready -> {
                 uiState.update { it.copy(progressState = true) }
                 authUseCase.verify(intent.verifyCodeRequest).onEach {
                     it.onSuccess {
@@ -43,13 +43,13 @@ class VerifyViewModelImpl @Inject constructor(
                 }.launchIn(viewModelScope)
             }
 
-            is VerifyViewModel.Intent.BackRegister -> {
+            is VerifyContract.Intent.BackRegister -> {
                 viewModelScope.launch {
                     direction.backRegister()
                 }
             }
 
-            is VerifyViewModel.Intent.ClearMessage -> {
+            is VerifyContract.Intent.ClearMessage -> {
                 uiState.update { it.copy(message = "", errorMessage = "") }
             }
         }

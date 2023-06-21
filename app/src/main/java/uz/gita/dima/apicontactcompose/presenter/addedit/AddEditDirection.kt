@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class AddEditDirection @Inject constructor(
     private val appNavigator: AppNavigator
-) : AddEditViewModel.AddEditDirection {
+) : AddEditContract.AddEditDirection {
     override suspend fun backToMain() {
         appNavigator.back()
     }

@@ -20,16 +20,16 @@ import javax.inject.Inject
 class AddEditViewModelImpl @Inject constructor(
     private val contactUseCase: ContactUseCase,
     private val useCase: AddUseCase,
-    private val direction: AddEditViewModel.AddEditDirection
+    private val direction: AddEditContract.AddEditDirection
 
-): AddEditViewModel.ViewModel, ViewModel() {
-    override val uiState = MutableStateFlow(AddEditViewModel.UIState())
+): AddEditContract.ViewModel, ViewModel() {
+    override val uiState = MutableStateFlow(AddEditContract.UIState())
 
     private val isInternetAvailable = isInternetAvailable(App.instance)
 
-    override fun onEventDispatcher(intent: AddEditViewModel.Intent) {
+    override fun onEventDispatcher(intent: AddEditContract.Intent) {
         when(intent) {
-            is AddEditViewModel.Intent.AddContact -> {
+            is AddEditContract.Intent.AddContact -> {
                 if (isInternetAvailable) {
                     Log.d("TTT","Connect")
                     if (intent.newContact.firstName.trim().isEmpty()) {
@@ -120,11 +120,11 @@ class AddEditViewModelImpl @Inject constructor(
                 }
             }
 
-            is AddEditViewModel.Intent.UpdateContact -> {
+            is AddEditContract.Intent.UpdateContact -> {
 
             }
 
-            is AddEditViewModel.Intent.ClearMessage -> {
+            is AddEditContract.Intent.ClearMessage -> {
 
             }
         }

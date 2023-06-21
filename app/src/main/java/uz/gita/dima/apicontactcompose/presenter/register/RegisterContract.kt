@@ -3,7 +3,7 @@ package uz.gita.dima.apicontactcompose.presenter.register
 import kotlinx.coroutines.flow.StateFlow
 import uz.gita.dima.apicontactcompose.data.source.remote.request.RegisterRequest
 
-interface RegisterViewModel {
+interface RegisterContract {
 
     sealed interface Intent {
         class Ready(val registerRequest: RegisterRequest): Intent
